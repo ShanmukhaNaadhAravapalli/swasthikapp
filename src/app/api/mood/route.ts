@@ -222,10 +222,14 @@ async function getGoogleNLPSentiment(text: string) {
 export async function GET(request: Request) {
   const dev = process.env.NODE_ENV !== "production";
   const { ok, session, error } = await safeGetSession(request.headers);
+  if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    console.log("GOOGLE_APPLICATION_CREDENTIALS env variable is not set");
+  }
+  
   return NextResponse.json({
     dev,
-    gcpCredsSet: Boolean(process.env.GCP_SERVICE_ACCOUNT || process.env.GOOGLE_APPLICATION_CREDENTIALS),
-    geminiKeySet: Boolean(process.env.GCP_SERVICE_ACCOUNT || process.env.GOOGLE_APPLICATION_CREDENTIALS),
+    gcpCredsSet: Boolean(process.env.GCP_SERVICE_ACCOUNT || JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS || '')),
+    geminiKeySet: Boolean(process.env.GCP_SERVICE_ACCOUNT || JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS || '')),
     session: dev ? { ok, session: session ?? undefined, error: error ?? undefined } : undefined,
   });
 }
