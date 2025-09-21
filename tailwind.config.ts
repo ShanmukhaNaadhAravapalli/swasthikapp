@@ -1,12 +1,18 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"], // allow dark mode with class="dark"
+// tailwind.config.ts (ESM, safe for "type": "module")
+import type { Config } from "tailwindcss";
+import animatePlugin from "tailwindcss-animate";
+
+const config: Config = {
+  darkMode: "class", // use string form for compatibility
   content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    // You do not need the 'spacing' line here.
+    // Tailwind's default spacing scale is automatically included.
     extend: {
       colors: {
         border: "hsl(214.3 31.8% 91.4%)",
@@ -28,7 +34,13 @@ module.exports = {
           "100%": { transform: "translate(100%, 0%)", opacity: "0" },
         },
       },
+      // If you are using a custom `--spacing` variable, you can define it here.
+      spacing: {
+        '--spacing': '1rem', // Example value
+      },
     },
   },
-  plugins: [],
+  plugins: [animatePlugin],
 };
+
+export default config;
