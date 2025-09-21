@@ -4,8 +4,8 @@ import { pool } from "@/lib/neon";
 
 export const runtime = "nodejs";
 
-export async function GET(req: Request, { params }: { params: { postId: string } }) {
-  const postId = params.postId;
+export async function GET(req: Request, { params }: { params: Promise<{ postId: string }> }) {
+  const { postId } = await params;
   if (!postId) return NextResponse.json({ comments: [] });
 
   const client = await pool.connect();
