@@ -38,7 +38,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise, onPlay }) => {
         <div className="relative aspect-video bg-muted">
           {isPlaying ? (
             <iframe
-              src={'https://www.youtube.com/embed/${exercise.videoId}?autoplay=1'}
+              src={`https://www.youtube.com/embed/${exercise.videoId}?autoplay=1`}
               title={exercise.title}
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -47,7 +47,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise, onPlay }) => {
           ) : (
             <>
               <img
-                src={'https://img.youtube.com/vi/${exercise.videoId}/maxresdefault.jpg'}
+                src={`https://img.youtube.com/vi/${exercise.videoId}/maxresdefault.jpg`}
                 alt={exercise.title}
                 className="w-full h-full object-cover"
               />
@@ -313,7 +313,7 @@ const MentraFolder: React.FC = () => {
   });
 
   const handlePlayVideo = (videoId: string) => {
-    console.log('Playing video: ${videoId}');
+    console.log(`Playing video: ${videoId}`);
   };
 
   return (
